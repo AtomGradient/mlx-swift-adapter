@@ -1,3 +1,33 @@
+# Update DeviceInfo Func in Cmlx/mlx/mlx/backend/metal/device
+
+```swift
+std::unordered_map<std::string, std::variant<std::string, size_t>>
+device_info() {
+    auto raw_device = device(default_device()).mtl_device();
+    const char* arch_name = raw_device->architecture()->name()->utf8String();
+    
+    if (arch_name == nullptr) {
+        arch_name = "unknown";
+    }
+    
+    auto arch = std::string(arch_name);
+    
+    int mib[] = {CTL_HW, HW_MEMSIZE};
+    size_t memsize = 0;
+    size_t length = sizeof(memsize);
+    
+    sysctl(mib, 2, &memsize, &length, NULL, 0);
+    
+    return {
+        {"architecture", arch},
+        {"max_buffer_length", raw_device->maxBufferLength()},
+        {"max_recommended_working_set_size",
+            raw_device->recommendedMaxWorkingSetSize()},
+        {"memory_size", memsize}
+    };
+}
+````
+
 # MLX Swift
 
 [**Installation**](#installation) | [**Documentation**](https://swiftpackageindex.com/ml-explore/mlx-swift/main/documentation/mlx) | [**Examples**](https://swiftpackageindex.com/ml-explore/mlx-swift/main/documentation/mlx/examples)
