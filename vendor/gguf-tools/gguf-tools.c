@@ -156,7 +156,7 @@ void gguf_tools_show(const char *filename) {
 
     /* Show all the key-value pairs. */
     gguf_key key;
-    while (gguf_get_key(ctx,&key)) {
+    while (gguf_get_key_mlx(ctx,&key)) {
         printf("%.*s: [%s] ", (int)key.namelen, key.name, gguf_get_value_type_name(key.type));
         gguf_print_value(ctx,key.type,key.val,Opt.verbose);
         printf("\n");
@@ -205,7 +205,7 @@ void gguf_tools_split_mixtral(int *experts_id, const char *mixtral_filename, con
     /* To start, copy all the key value items, excluding the one
      * related to the experts. */
     gguf_key key;
-    while (gguf_get_key(mixtral,&key)) {
+    while (gguf_get_key_mlx(mixtral,&key)) {
         char keybuf[1024];
         snprintf(keybuf,sizeof(keybuf),"%.*s",(int)key.namelen, key.name);
 

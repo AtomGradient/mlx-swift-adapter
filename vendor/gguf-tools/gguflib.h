@@ -168,7 +168,7 @@ gguf_ctx *gguf_create(const char *filename, int flags);
 int gguf_remap(gguf_ctx *ctx);
 void gguf_rewind(gguf_ctx *ctx);
 void gguf_close(gguf_ctx *ctx);
-int gguf_get_key(gguf_ctx *ctx, gguf_key *key);
+int gguf_get_key_mlx(gguf_ctx *ctx, gguf_key *key);
 int gguf_get_tensor(gguf_ctx *ctx, gguf_tensor *tensor);
 const char *gguf_get_value_type_name(uint32_t type);
 const char *gguf_get_tensor_type_name(uint32_t type);

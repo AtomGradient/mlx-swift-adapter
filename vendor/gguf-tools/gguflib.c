@@ -168,7 +168,7 @@ void gguf_close(gguf_ctx *ctx) {
 /* Parse the next key. Returns key information into 'key'.
  * The function return value is 1 is a key was returned, or 0
  * if there are no longer keys to process in this GGUF file. */
-int gguf_get_key(gguf_ctx *ctx, gguf_key *key) {
+int gguf_get_key_mlx(gguf_ctx *ctx, gguf_key *key) {
     if (ctx->left_kv == 0) return 0;
     ctx->left_kv--;
     struct gguf_string *str = (struct gguf_string*) (ctx->data+ctx->off);
@@ -194,7 +194,7 @@ int gguf_get_key(gguf_ctx *ctx, gguf_key *key) {
  * tensors information segment. */
 void gguf_skip_key_values_section(gguf_ctx *ctx) {
     gguf_key key;
-    while (gguf_get_key(ctx,&key))
+    while (gguf_get_key_mlx(ctx,&key))
         gguf_do_with_value(ctx,key.type,key.val,NULL,0,0,NULL);
 }
 
