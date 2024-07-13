@@ -49,9 +49,6 @@ let package = Package(
                 // vendored library, include header only
                 "json",
 
-                // vendored library, do not include driver
-                "gguf-tools/gguf-tools.c",
-
                 // vendored library
                 "fmt/test",
                 "fmt/doc",
@@ -117,7 +114,6 @@ let package = Package(
                 .headerSearchPath("include/mlx-c"),
                 .headerSearchPath("metal-cpp"),
                 .headerSearchPath("json/single_include/nlohmann"),
-                .headerSearchPath("gguf-tools"),
                 .headerSearchPath("fmt/include"),
 
                 .define("ACCELERATE_NEW_LAPACK"),
